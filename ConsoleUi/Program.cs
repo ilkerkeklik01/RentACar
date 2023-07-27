@@ -22,7 +22,7 @@ namespace ConsoleUi
                 Console.WriteLine(item.Description);
             }
 
-            Console.WriteLine(carManager.GetById(14).Description);
+            //Console.WriteLine(carManager.GetById(14).Description);
 
 
         }
