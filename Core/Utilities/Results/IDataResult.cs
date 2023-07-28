@@ -1,13 +1,14 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Abstract
+namespace Core.Utilities.Results
 {
-    public interface IBrandService:IEntityService<Brand>
+    public interface IDataResult<T>:IResult 
     {
+        public T Data { get;}
     }
 }

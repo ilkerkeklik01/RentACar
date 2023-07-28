@@ -26,7 +26,7 @@ namespace ConsoleUi
 
             EfBrandDal efBrand = new EfBrandDal();
             BrandManager brandManager = new BrandManager(efBrand);
-            foreach (var item in brandManager.GetAll())
+            foreach (var item in brandManager.GetAll().Data)
             {
                 Console.WriteLine(item.BrandName);
             }
@@ -38,7 +38,7 @@ namespace ConsoleUi
 
             EfColorDal efColor = new EfColorDal();
             ColorManager colorManager = new ColorManager(efColor);
-            foreach (var item in colorManager.GetAll())
+            foreach (var item in colorManager.GetAll().Data)
             {
                 Console.WriteLine(item.ColorName);
             }
@@ -49,14 +49,14 @@ namespace ConsoleUi
             Console.WriteLine("\nCars\n\n");
             EfCarDal efCarDal = new EfCarDal();
             CarManager carManager = new CarManager(efCarDal);
-            foreach (var item in carManager.GetAll())
+            foreach (var item in carManager.GetAll().Data)
             {
                 Console.WriteLine(item.Description);
             }
 
             
             Console.WriteLine("\nCar Details\n\n");
-            foreach (var item in carManager.GetCarDetails())
+            foreach (var item in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(item);
             }
