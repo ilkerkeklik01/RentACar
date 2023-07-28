@@ -1,6 +1,7 @@
-﻿using DataAccess.Abstract;
-using Entities.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,19 +14,32 @@ namespace DataAccess.Concrete.EntityFramework
     public class EfCarDal:EfEntityRepositoryBase<Car,MyReCapProjectDataBaseContext>,ICarDal
     {
         //warning
-        public void Add(Car car)
+        public List<CarDetailDTO> GetCarDetails()
         {
-            Console.WriteLine("Yenisi calisti");
+
             using (MyReCapProjectDataBaseContext context = new MyReCapProjectDataBaseContext())
             {
-                if (car.Description.Length >= 2 && car.DailyPrice > 0)
-                {
-                    var addedEntity = context.Entry(car);
-                    addedEntity.State = EntityState.Added;
-                    context.SaveChanges();
-                }
-                
+                //Warning
+                var result = from c in context.Cars
+                             join b in context.Brands
+                             on c.BrandId equals b.BrandId
+                             join co in context.Colors
+                             on c.ColorId equals co.ColorID
+                             select new CarDetailDTO()
+                             {
+                                 CarName = c.Description,
+                                 BrandName = b.BrandName,
+                                 ColorName = co.ColorName,
+                                 DailyPrice = c.DailyPrice
+                             };
+                return result.ToList();
+                             
             }
+
+
         }
+
+
+
     }
 }

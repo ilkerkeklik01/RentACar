@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace DataAccess.Concrete.InMemory
     public class InMemoryCarDal:ICarDal
     {
         List<Car> _cars;
+        
 
         public InMemoryCarDal()
         {
@@ -36,47 +38,99 @@ namespace DataAccess.Concrete.InMemory
             };
         }
 
-        public void Add(Car car)
+        public void Add(Car entity)
         {
-            _cars.Add(car);
+            _cars.Add(entity);
         }
 
-        public void Delete(Car car)
+        public void Delete(Car entity)
         {
-            Car deletedCar = _cars.SingleOrDefault(c=>c.CarId == car.CarId);
+            var deletedCar = _cars.SingleOrDefault(c=> c.CarId==entity.CarId);
             _cars.Remove(deletedCar);
         }
 
         public Car Get(Expression<Func<Car, bool>> filter)
         {
-            throw new NotImplementedException();
-        }
+            //warning
+            Func<Car,bool> compiledFilter = filter.Compile();
+            return _cars.SingleOrDefault(compiledFilter);
 
-        public List<Car> GetAll()
-        {
-            return _cars;
         }
 
         public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
         {
+            Func<Car, bool> compiledFilter = filter.Compile();
+            return _cars.Where(compiledFilter).ToList();
+
+
+        }
+
+        public List<CarDetailDTO> GetCarDetails()
+        {
             throw new NotImplementedException();
         }
 
-        public Car GetById(int id)
+        public void Update(Car entity)
         {
-            Car car = _cars.SingleOrDefault(c => c.CarId == id);
-            return car;
+            var updatedCar = _cars.SingleOrDefault(c=>entity.CarId==c.CarId);
+            updatedCar.DailyPrice=entity.DailyPrice;
+            updatedCar.Description=entity.Description;
+            updatedCar.ModelYear=entity.ModelYear;
+            updatedCar.BrandId=entity.BrandId;
+            updatedCar.ColorId=entity.ColorId;
         }
 
-        public void Update(Car car)
-        {
-            Car updatedCar = _cars.SingleOrDefault(c => c.CarId == car.CarId);
-            updatedCar.DailyPrice=car.DailyPrice;
-            updatedCar.Description=car.Description;
-            updatedCar.ModelYear=car.ModelYear;
-            updatedCar.BrandId=car.BrandId;
-            updatedCar.ColorId=car.ColorId;
-            
-        }
+        //public void Insert(Car car)
+        //{
+        //    _cars.Add(car);
+        //}
+
+        //public void Delete(Car car)
+        //{
+        //    Car deletedCar = _cars.SingleOrDefault(c=>c.CarId == car.CarId);
+        //    _cars.Remove(deletedCar);
+        //}
+
+        //public Car Get(Expression<Func<Car, bool>> filter)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public List<Car> GetAll()
+        //{
+        //    return _cars;
+        //}
+
+        //public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public Car GetById(int id)
+        //{
+        //    Car car = _cars.SingleOrDefault(c => c.CarId == id);
+        //    return car;
+        //}
+
+        //public void Update(Car car)
+        //{
+        //    Car updatedCar = _cars.SingleOrDefault(c => c.CarId == car.CarId);
+        //    updatedCar.DailyPrice=car.DailyPrice;
+        //    updatedCar.Description=car.Description;
+        //    updatedCar.ModelYear=car.ModelYear;
+        //    updatedCar.BrandId=car.BrandId;
+        //    updatedCar.ColorId=car.ColorId;
+
+        //}
+
+        //public List<CarDetailDTO> GetCarDetails()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public void Add(Car entity)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

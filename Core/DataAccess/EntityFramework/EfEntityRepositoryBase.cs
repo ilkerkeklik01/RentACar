@@ -1,5 +1,5 @@
-﻿using DataAccess.Abstract;
-using Entities.Abstract;
+﻿using Core.Entities;
+using DataAccess.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,8 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace DataAccess.Concrete.EntityFramework
+namespace Core.DataAccess.EntityFramework
 {
     //Warning
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
@@ -53,7 +52,7 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
+        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter =null)
         {
             using (TContext context = new TContext())
             {
