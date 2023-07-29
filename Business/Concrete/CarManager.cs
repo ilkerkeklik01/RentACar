@@ -38,7 +38,7 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetAll()
         {   
 
-            if(DateTime.Now.Hour ==1) {
+            if(DateTime.Now.Hour ==7) {
                 return new ErrorDataResult<List<Car>>( "System is in maintenance!");
 
             }

@@ -9,9 +9,9 @@ namespace ConsoleUi
     {
         static void Main(string[] args)
         {
-            //CarTest();
-            //ColorTest();
-            //BrandTest();
+            CarTest();
+            ColorTest();
+            BrandTest();
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             
             Rental rental1 =new Rental()

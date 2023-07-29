@@ -33,7 +33,7 @@ namespace Business.Concrete
 
         public IDataResult<Customer> GetById(int id)
         {
-            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.UserId == id), "Customer UserID:" + id + " provided!");
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.CustomerId == id), "Customer CustomerID:" + id + " provided!");
         }
 
         public IResult Insert(Customer entity)
