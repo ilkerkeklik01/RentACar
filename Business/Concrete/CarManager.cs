@@ -37,6 +37,13 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {   
+
+            if(DateTime.Now.Hour ==1) {
+                return new ErrorDataResult<List<Car>>( "System is in maintenance!");
+
+            }
+
+
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(),"Cars listed!");
 
 

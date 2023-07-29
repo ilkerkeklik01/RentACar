@@ -35,6 +35,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.RentalId == id),"Rental RentalId:"+id+" provided!");
         }
 
+        //Renting a car
         public IResult Insert(Rental entity)
         {
             var result = IsSuitableToRent(entity);
