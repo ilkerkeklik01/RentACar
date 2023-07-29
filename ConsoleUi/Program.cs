@@ -5,14 +5,40 @@ using Entities.Concrete;
 
 namespace ConsoleUi
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            CarTest();
-            ColorTest();
-            BrandTest();
+            //CarTest();
+            //ColorTest();
+            //BrandTest();
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
             
+            Rental rental1 =new Rental()
+            {
+                RentalId = 1,
+                CarId = 1,
+                CustomerId = 1,
+                RentDate = new DateTime(2023, 07, 29),
+                ReturnDate = null
+            };
+
+            rental1.ReturnDate = new DateTime(2023,07,31);
+
+            var resultUpdate =rentalManager.Update(rental1);
+
+            Console.WriteLine(resultUpdate.Message);
+            
+            Rental rental2 = new Rental()
+            {
+                RentalId = 2,
+                CarId = 1,
+                CustomerId = 1,
+                RentDate = new DateTime(2023, 07, 29),
+                ReturnDate = null
+            };
+            var resultInsert=rentalManager.Insert(rental2);
+            Console.WriteLine(resultInsert.Message);
 
 
             //Console.WriteLine(carManager.GetById(14).Description);
@@ -49,6 +75,9 @@ namespace ConsoleUi
             Console.WriteLine("\nCars\n\n");
             EfCarDal efCarDal = new EfCarDal();
             CarManager carManager = new CarManager(efCarDal);
+
+
+            
             foreach (var item in carManager.GetAll().Data)
             {
                 Console.WriteLine(item.Description);

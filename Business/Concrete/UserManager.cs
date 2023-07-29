@@ -40,11 +40,13 @@ namespace Business.Concrete
 
         public IResult Insert(User entity)
         {
+            _userDal.Add(entity);
             return new SuccessResult("User inserted!");
         }
 
         public IResult Update(User entity)
         {
+            _userDal.Update(entity);    
             return new SuccessResult("User updated");
         }
 
