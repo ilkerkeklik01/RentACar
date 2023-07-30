@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -38,6 +40,9 @@ namespace Business.Concrete
         //Renting a car
         public IResult Insert(Rental entity)
         {
+
+
+
             var result = IsSuitableToRent(entity);
 
             if (result.Success) {

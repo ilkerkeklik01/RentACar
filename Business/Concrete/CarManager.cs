@@ -1,8 +1,11 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,21 +28,17 @@ namespace Business.Concrete
         //warning  kosullarimi business tarafina yaziyorum database ile karistirmiyorum
         public IResult Insert(Car car)
         {
-            if (car.Description.Length >= 2 && car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult("Car inserted!");
-            }
-            return new ErrorResult("Invalid car element!");
-            
+            ValidationTool.Validate(new CarValidator(), car);
 
+            _carDal.Add(car);
+            return new SuccessResult("Car inserted!");
         }
 
         public IDataResult<List<Car>> GetAll()
         {   
 
             if(DateTime.Now.Hour ==7) {
-                return new ErrorDataResult<List<Car>>( "System is in maintenance!");
+                return new ErrorDataResult<List<Car>>("System is in maintenance!");
 
             }
 
