@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -26,10 +27,15 @@ namespace Business.Concrete
         }
 
         //warning  kosullarimi business tarafina yaziyorum database ile karistirmiyorum
+        //Do not implement business and other CrossCuttingConcerns together. Use AOP instead
+
+
+        [ValidationAspect(typeof(CarValidator))]
+
         public IResult Insert(Car car)
         {
-            ValidationTool.Validate(new CarValidator(), car);
-
+            //validation,log,cacheremove,performance,transaction,authorization processes is moved outside the method body
+            //with AOP
             _carDal.Add(car);
             return new SuccessResult("Car inserted!");
         }
