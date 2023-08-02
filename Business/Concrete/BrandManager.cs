@@ -34,7 +34,7 @@ namespace Business.Concrete
 
         public IDataResult<Brand> GetById(int id)
         {
-            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == id),"Brand brandId:"+id+" provided!");
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == id),"Brand brandId:"+id+" is provided!");
         }
 
         public IResult Insert(Brand entity)

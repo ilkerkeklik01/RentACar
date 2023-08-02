@@ -9,6 +9,11 @@ namespace ConsoleUi
     {
         static void Main(string[] args)
         {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var relativePath = "CarImages";
+            var res = Path.Combine(currentDirectory, relativePath);
+            Console.WriteLine(res);
+
             CarTest();
             ColorTest();
             BrandTest();

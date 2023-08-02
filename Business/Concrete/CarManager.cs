@@ -2,6 +2,7 @@
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -30,15 +31,14 @@ namespace Business.Concrete
         //Do not implement business and other CrossCuttingConcerns together. Use AOP instead
 
 
-        [ValidationAspect(typeof(CarValidator))]
-
+        [ValidationAspect(typeof(CarValidator))] //Attribute 
         public IResult Insert(Car car)
         {
             //validation,log,cacheremove,performance,transaction,authorization processes is moved outside the method body
             //with AOP
             _carDal.Add(car);
             return new SuccessResult("Car inserted!");
-        }
+        }   
 
         public IDataResult<List<Car>> GetAll()
         {   
@@ -57,7 +57,7 @@ namespace Business.Concrete
         public IDataResult<Car> GetById(int id) 
         {
 
-            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == id),"Car CarId:"+id+" provided!");
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == id),"Car CarId:"+id+" is provided!");
 
         }
 
@@ -80,9 +80,11 @@ namespace Business.Concrete
 
 
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
+            BusinessRules.Run();
+
             _carDal.Update(car);
 
             return new SuccessResult("Car updated!");

@@ -35,7 +35,7 @@ namespace Business.Concrete
 
         public IDataResult<User> GetById(int id)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.UserId == id), "User UserId:" + id + " provided!");
+            return new SuccessDataResult<User>(_userDal.Get(u => u.UserId == id), "User UserId:" + id + " is provided!");
         }
 
         public IResult Insert(User entity)

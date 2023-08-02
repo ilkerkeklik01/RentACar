@@ -33,7 +33,7 @@ namespace Business.Concrete
 
         public IDataResult<Color> GetById(int id)
         {
-            return new SuccessDataResult<Color>(_colorDal.Get(c => c.ColorId == id), "Color ColorID:" + id + " provided!");
+            return new SuccessDataResult<Color>(_colorDal.Get(c => c.ColorId == id), "Color ColorID:" + id + " is provided!");
         }
 
         public IResult Insert(Color entity)

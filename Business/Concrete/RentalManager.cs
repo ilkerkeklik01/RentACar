@@ -34,7 +34,7 @@ namespace Business.Concrete
 
         public IDataResult<Rental> GetById(int id)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.RentalId == id),"Rental RentalId:"+id+" provided!");
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.RentalId == id),"Rental RentalId:"+id+" is provided!");
         }
 
         //Renting a car

@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -50,6 +51,7 @@ namespace Core.DataAccess.EntityFramework
 
                 return context.Set<TEntity>().SingleOrDefault(filter);
             }
+
         }
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter =null)
