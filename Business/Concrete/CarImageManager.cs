@@ -96,7 +96,7 @@ namespace Business.Concrete
             {
                 var guidFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
-                var imagePath = Path.Combine(
+                var imagePath = Path.Combine(Environment.CurrentDirectory,
                     Messages.PathToCarImages,
                     guidFileName
                     );
@@ -141,7 +141,9 @@ namespace Business.Concrete
             {
                 var guidFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
-                var newImagePath = Path.Combine(Messages.PathToCarImages,guidFileName);
+                var newImagePath = Path.Combine(Environment.CurrentDirectory,
+                    Messages.PathToCarImages,
+                    guidFileName);
 
                 using (var stream = new FileStream(newImagePath,FileMode.Create))
                 {
